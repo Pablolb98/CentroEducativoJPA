@@ -158,4 +158,11 @@ public class Profesor implements Serializable {
 		return valoracionmateria;
 	}
 
+	@Override
+	public String toString() {
+		return  nombre;
+	}
+	
+	
+
 }
