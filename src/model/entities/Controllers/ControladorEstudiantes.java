@@ -1,7 +1,11 @@
 package model.entities.Controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
@@ -97,11 +101,6 @@ public class ControladorEstudiantes {
 		}
 		
 
-		
-		/**
-		 * 
-		 * @return
-		 */
 		public boolean guardar (Estudiante e) {
 			try {
 				EntityManager em = factory.createEntityManager();
@@ -122,9 +121,6 @@ public class ControladorEstudiantes {
 			}
 		}
 
-
-
-		
 		/**
 		 * 
 		 * @param id
@@ -133,8 +129,20 @@ public class ControladorEstudiantes {
 		public void borrar(Estudiante e) {
 			EntityManager em = factory.createEntityManager();
 			em.getTransaction().begin();
+			e = em.merge(e);
 			em.remove(e);
 			em.getTransaction().commit();
 			em.close();
-}
+		}
+		
+
+		public List<Estudiante> findAll() {
+			EntityManager em = factory.createEntityManager();
+			
+			Query q = em.createNativeQuery("SELECT * FROM estudiante", Estudiante.class);
+			
+			List<Estudiante> list = (List<Estudiante>) q.getResultList();
+			em.close();
+			return list;
+		}
 }

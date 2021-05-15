@@ -12,6 +12,8 @@ import java.util.List;
 @Entity
 @NamedQuery(name="Estudiante.findAll", query="SELECT e FROM Estudiante e")
 public class Estudiante implements Serializable {
+	
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -156,6 +158,11 @@ public class Estudiante implements Serializable {
 		valoracionmateria.setEstudiante(null);
 
 		return valoracionmateria;
+	}
+	
+	@Override
+	public String toString() {
+		return nombre;
 	}
 
 }
